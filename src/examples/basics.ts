@@ -1,5 +1,5 @@
-import { GraphNode, edge, incomingEdgeView, queryEdgeView } from "."
-import { query } from "./query"
+import { GraphNode, edge, incomingEdgeView, queryEdgeView } from ".."
+import { query } from "../query"
 
 class Obj1<T> extends GraphNode {
     value: T
@@ -12,7 +12,7 @@ class Obj1<T> extends GraphNode {
     @edge()
     child1: Obj1<T> | undefined
 
-    @edge()
+    @edge('child 2 with a different edge name')
     child2: Obj1<T> | undefined
 
     @incomingEdgeView('child1')

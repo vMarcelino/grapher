@@ -7,8 +7,8 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch test",
-            "program": "${workspaceFolder}/src/test.ts",
+            "name": "Launch current file",
+            "program": "${file}",
             "preLaunchTask": "tsc",
             "outFiles": [
                 "${workspaceFolder}/lib/**/*.js"

@@ -19,27 +19,33 @@ export class Query {
         return items
     }
 
-    _createNewQuery(func: ExecutionFunction) {
+    private _createNewQuery(func: ExecutionFunction) {
         return new Query([...this.executionPath, func])
     }
 
-    throughOutgoingEdge(key: string) {
+    throughOutgoingEdge(key: string | string[]) {
+        if (!Array.isArray(key))
+            key = [key]
+
         const func: ExecutionFunction = (items) => {
             return items
                 .filter((i): i is GraphNode => i instanceof GraphNode)
                 .map(i => Array.from(i.outgoing)).flat()
-                .filter(e => e.value === key)
+                .filter(e => key.includes(e.value))
                 .map(e => e.destination)
         }
         return this._createNewQuery(func)
     }
 
-    throughIncomingEdge(key: string) {
+    throughIncomingEdge(key: string | string[]) {
+        if (!Array.isArray(key))
+            key = [key]
+
         const func: ExecutionFunction = (items) => {
             return items
                 .filter((i): i is GraphNode => i instanceof GraphNode)
                 .map(i => Array.from(i.incoming)).flat()
-                .filter(e => e.value === key)
+                .filter(e => key.includes(e.value))
                 .map(e => e.source)
         }
         return this._createNewQuery(func)
